@@ -3,6 +3,7 @@ THEME
 red:  #ff5b5b
 blue: #44bdbd
 gray: #353535
+font: https://fonts.googleapis.com/css?family=Germania+One|Source+Code+Pro
 */
 
 /* Header */
@@ -72,9 +73,14 @@ a {
   color: #ff5b5b;
 }
 
-a:hover {
+a:hover,
+a.navigation:hover {
   color: #ffffff;
   transition: 0.3s;
+}
+
+a.navigation {
+  color: #44bdbd;
 }
 
 strong {
