@@ -8,3 +8,6 @@ Gemfile.lock
 # OS Temporary Files
 .DS_Store
 Thumbs.db
+
+# Brian's
+.idea/

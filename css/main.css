@@ -1,0 +1,134 @@
+/*
+THEME
+red:  #ff5b5b
+blue: #44bdbd
+gray: #353535
+*/
+
+/* Header */
+
+h1, h2, h3, .navbar {
+  font-family: 'Germania One', cursive;
+  color: #44bdbd;
+}
+
+.navbar {
+  font-size: 18px;
+}
+
+.hero.is-dark .title {
+  font-size: 42px;
+  color: #44bdbd;
+}
+
+.hero.is-dark .subtitle {
+  font-size: 30px;
+  color: #44bdbd;
+}
+
+.hero.is-dark a.navbar-item.is-active span {
+  color: #ff5b5b;
+}
+
+/* Body */
+
+body {
+  font-family: 'Source Code Pro', monospace;
+  background-color: #353535;
+  color: #ffffff;
+}
+
+hr {
+  background-color: #ff5b5b;
+}
+
+.content h2, .content h3 {
+  color: #44bdbd;
+}
+
+.table,
+.content table thead td,
+.content table thead th,
+.content table tfoot td,
+.content table tfoot th {
+  background-color: #353535;
+  color: #ffffff;
+}
+
+.table.is-bordered td, .table.is-bordered th {
+  border-width: 2px;
+}
+
+.table.is-bordered tr:last-child td,
+.table.is-bordered tr:last-child th {
+  border-bottom-width: 2px;
+}
+
+th {
+  font-weight: bolder;
+}
+
+a {
+  color: #ff5b5b;
+}
+
+a:hover {
+  color: #ffffff;
+  transition: 0.3s;
+}
+
+strong {
+  font-family: 'Germania One', cursive;
+  color: #ffffff;
+  font-size: 30px;
+}
+
+a.interest {
+  cursor: default;
+}
+
+a.theme-yellow {
+  color: #f4dd61;
+}
+
+a.theme-green {
+  color: #06d6a0;
+}
+
+a.theme-purple {
+  color: #d796d7;
+}
+
+a.theme-orange {
+  color: #f77f00;
+}
+
+a.theme-blue {
+  color: #75a3bc;
+}
+
+/* Footer */
+
+.hero.is-dark a:not(.button):not(.dropdown-item):not(.tag):hover {
+  color: #ff5b5b;
+}
+
+/* Customized */
+
+svg, .prototypes {
+  background-color: #dddddd;
+  display: block;
+  margin: auto;
+  width: 960px;
+  height: 500px;
+}
+
+.profile-photo {
+  width: 420px;
+  height: 420px;
+}
+
+.profile-links {
+  text-align: justify;
+  text-justify: inter-word;
+}

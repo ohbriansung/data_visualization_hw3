@@ -6,66 +6,78 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>CS 360/560 Spring 2019</title>
+  <title>Tree Maintenance - Home</title>
 
-  <!-- bulma 0.7.2 and font awesome v5.7.1 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" integrity="sha256-2pUeJf+y0ltRPSbKOeJh09ipQFYxUdct5nTY6GAXswA=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Germania+One|Source+Code+Pro">
+
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="shortcut icon" href="favicon.ico">
 </head>
 
 <!-- body -->
 <body>
 
   <!-- header -->
-  <section class="hero is-primary is-bold">
-    <!-- todo: change assignment and name -->
+  <section class="hero is-dark is-bold">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
-          Visualization Assignment
+          Visualization - Tree Maintenance
         </h1>
         <h2 class="subtitle">
-          Full Name
+          Chien-Yu Sung
         </h2>
       </div>
     </div>
 
-    <!-- todo: change navigation as needed -->
     <div class="hero-foot">
       <div class="container">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-transparent" role="navigation" aria-label="main navigation">
 
           <div class="navbar-brand">
-            <a class="navbar-item" href="#top">
-              <span class="icon">
-                <i class="fas fa-home"></i>
-              </span>
-              <span>Home</span>
+            <a role="button" class="navbar-burger burger" data-target="main-navbar" aria-label="menu" aria-expanded="false">
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
             </a>
           </div>
 
           <div id="main-navbar" class="navbar-menu">
-            <a class="navbar-item" href="#vis1">
+            <a class="navbar-item" href="#intro">
               <span class="icon">
-                <i class="fas fa-chart-area"></i>
+                <i class="fas fa-home"></i>
               </span>
-              <span>Visualization 1</span>
+              <span>Introduction</span>
             </a>
-          </div>
 
-          <div class="navbar-end">
-            <a class="navbar-item" href="#grade">
+            <a class="navbar-item" href="#data">
               <span class="icon">
-                <i class="fas fa-tasks"></i>
+                <i class="fas fa-table"></i>
               </span>
-              <span>Grade</span>
+              <span>Dataset</span>
+            </a>
+
+            <a class="navbar-item" href="#proto">
+              <span class="icon">
+                <i class="fas fa-image"></i>
+              </span>
+              <span>Prototype</span>
+            </a>
+
+            <a class="navbar-item" href="#vis">
+              <span class="icon">
+                <i class="fas fa-chart-bar"></i>
+              </span>
+              <span>Visualization</span>
             </a>
 
             <a class="navbar-item" href="#about">
               <span class="icon">
-                <i class="fas fa-info-circle"></i>
+                <i class="fas fa-user"></i>
               </span>
-              <span>About</span>
+              <span>About Me</span>
             </a>
           </div>
 
@@ -74,14 +86,86 @@
     </div>
   </section>
 
-  <!-- todo: add sections as necessary -->
-  <section class="section">
+  <!-- introduction setcion -->
+  <section id="intro" class="section">
     <div class="container content">
-      <!-- todo: modify as necessary (or move visualizations to separate pages) -->
-      <h2>Visualization 1</h2>
+      <h2>Introduction</h2>
 
-      <svg width="100%" height="400" style="background-color: whitesmoke; border: 1px solid black;">
-      </svg>
+      <p>
+        The dataset I used in this project was <b>311 Cases</b> sourced from <a href="https://data.sfgov.org/City-Infrastructure/311-Cases/vw6y-z8j6" target="_blank">data.sfgov.org</a>.
+        This project focused on visualizing <b>tree maintenance</b> data happened between <b>03/01/2018</b> and <b>03/01/2019</b>, especially with <b>geospatial</b> data, in order to get a better understanding about the stories underneath.
+        I used <b>Tableau</b> for creating my prototype and used <b>D3.js</b> verson 5 for implementing the visualization.
+      </p>
+    </div>
+  </section>
+
+  <hr class="container">
+
+  <!-- dataset setcion -->
+  <section id="data" class="section">
+    <div class="container content">
+      <h3>Dataset</h3>
+
+      <p>
+        Source: <a href="https://data.sfgov.org/City-Infrastructure/Tree-Maintenance-March-2018-to-2019/nm7r-4cxx?category=City-Infrastructure&view_name=Tree-Maintenance-March-2018-to-2019" target="_blank">Tree Maintenance March 2018 to 2019</a> (The dataset was downloaded on 04/02/2019)
+      </p>
+
+      <table class="table is-bordered is-striped is-narrow is-fullwidth">
+        <thead>
+          <tr>
+            <th style="width: 15ex">Attribution</th>
+            <th style="width: 12ex">Value</th>
+            <th>Sreenshot</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td>Size (MB)</td>
+            <td>4.7</td>
+            <td><img src="img/data_size.png"></td>
+          </tr>
+          <tr>
+            <td>Rows</td>
+            <td>11,478</td>
+            <td><img src="img/data_row_count.png"></td>
+          </tr>
+          <tr>
+            <td>Columns</td>
+            <td>20</td>
+            <td><img src="img/data_column_count.png"></td>
+          </tr>
+          <tr>
+            <td>Data Types</td>
+            <td colspan="2">String, Number, Datetime, Boolean, Location (Latitude and Longitude)</td>
+          </tr>
+        </tfoot>
+      </table>
+
+      <p>
+        TBA
+      </p>
+    </div>
+  </section>
+
+  <hr class="container">
+
+  <!-- prototype setcion -->
+  <section id="proto" class="section">
+    <div class="container content">
+      <h2>Prototype</h2>
+
+      <img src="https://bulma.io/images/placeholders/128x128.png" class="prototypes">
+    </div>
+  </section>
+
+  <hr class="container">
+
+  <!-- visualization setcion -->
+  <section id="vis" class="section">
+    <div class="container content">
+      <h2>D3 Visualization</h2>
+
+      <svg id="svg"></svg>
 
       <h3>Interpretation</h3>
 
@@ -103,129 +187,38 @@
     </div>
   </section>
 
-  <!-- separator between sections -->
   <hr class="container">
 
-  <!-- grade section -->
-  <section class="section">
-    <div class="container content">
-      <h2 id="grade">
-        Expected Grade
-      </h2>
-
-      <!-- todo: modify to indicate your expected grade -->
-      <table class="table is-hoverable">
-        <thead>
-          <tr>
-            <th>Done?</th>
-            <th>Letter</th>
-            <th>Justification</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <!-- d level functionality -->
-          <tr>
-            <td class="has-text-centered">
-              <i class="far fa-fw fa-check-circle has-text-success"></i>
-            </td>
-
-            <td class="has-text-centered">
-              D
-            </td>
-
-            <td>
-              If appropriate, provide a brief justification for this level of functionality. Clearly state if this level was not implemented.
-            </td>
-          </tr>
-
-          <!-- c level functionality -->
-          <tr>
-            <td class="has-text-centered">
-              <i class="far fa-fw fa-check-circle has-text-success"></i>
-            </td>
-
-            <td class="has-text-centered">
-              C
-            </td>
-
-            <td>
-              If appropriate, provide a brief justification for this level of functionality. Clearly state if this level was not implemented.
-            </td>
-          </tr>
-
-          <!-- b level functionality -->
-          <tr>
-            <td class="has-text-centered">
-              <i class="far fa-fw fa-times-circle has-text-danger"></i>
-            </td>
-
-            <td class="has-text-centered">
-              B
-            </td>
-
-            <td>
-              If appropriate, provide a brief justification for this level of functionality. Clearly state if this level was not implemented.
-            </td>
-          </tr>
-
-
-          <!-- a level functionality -->
-          <tr>
-            <td class="has-text-centered">
-              <i class="far fa-fw fa-times-circle has-text-danger"></i>
-            </td>
-
-            <td class="has-text-centered">
-              A
-            </td>
-
-            <td>
-              If appropriate, provide a brief justification for this level of functionality. Clearly state if this level was not implemented.
-            </td>
-          </tr>
-        <tbody>
-      </table>
-
-      <p>
-        Any additional context you want to provide regarding functionality and grading can be included here. This may include any challenges or bugs you ran into that prevented you from implementing additional functionality.
-      </p>
-    </div>
-  </section>
-
   <!-- about section -->
-  <!-- todo: can fill in, or link to an about page you use for all assignments -->
-  <section class="section">
+  <section id="about" class="section">
     <div class="container content">
-      <h2 id="about">
+      <h2>
         About Me
       </h2>
 
       <div class="media">
         <div class="media-left">
-          <p class="image is-128x128">
-            <!-- todo: replace with your profile image -->
-            <img src="https://bulma.io/images/placeholders/128x128.png">
+          <p>
+            <img src="img/me.jpg" class="profile-photo">
           </p>
         </div>
 
         <div class="media-content">
             <p>
-              <!-- todo: replace with your information -->
-              <strong>Full Name</strong>
+              <strong>Chien-Yu Sung</strong>
               <br/>
-              This is a good place to place a brief biography describing your interests and skills, a professional profile photo, and/or links to your Github, Linkedin, and other <em>professional</em> social media accounts.
+              An enthusiastic and responsible man with ambition and creativity.
+              Capable of working as a dedicated team member as well as an independent initiative taker.
+              Currently a 2nd year Master student in Computer Science at University of San Francisco.
+              I am graduating in May 18, 2019.
               <br/>
-              <!-- find brand icons at: https://fontawesome.com/icons?d=gallery&s=brands&m=free -->
-              <a href="https://github.com/">
-                <span class="fab fa-github"></span>
-                <span>Github</span>
-              </a>
-              &bullet;
-              <a href="https://www.linkedin.com/">
-                <span class="fab fa-linkedin"></span>
-                <span>LinkedIn</span>
-              </a>
+              <br/>
+              [ Interests ]<br/>
+              <a class="interest theme-yellow"><i class="fas fa-globe-americas"></i> Distributed System</a><br/>
+              <a class="interest theme-purple"><i class="fas fa-cubes"></i> Site Reliability</a><br/>
+              <a class="interest theme-green"><i class="fas fa-shield-alt"></i> Cybersecurity</a><br/>
+              <a class="interest theme-orange"><i class="fas fa-chart-pie"></i> Data Visualization</a><br/>
+              <a class="interest theme-blue"><i class="fas fa-chess"></i> Board Games</a><br/>
             </p>
 
         </div>
@@ -235,22 +228,34 @@
   </section>
 
   <!-- footer -->
-  <footer class="footer">
+  <footer class="footer hero is-dark">
     <div class="content has-text-centered">
       <small>
         <a href="#top">
           <span class="fas fa-arrow-up"></span>
           <span>Back to Top</span>
         </a>
-        <br/>
-        <a href="/">CS 360/560 Data Visualization</a>
-        &bullet;
-        <a href="https://myusf.usfca.edu/arts-sciences/computer-science">Department of Computer Science</a>
-        &bullet;
-        <a href="https://www.usfca.edu/">University of San Franciscio</a>
       </small>
+      <br/>
+      <br/>
+      <a href="https://github.com/ohbriansung" target="_blank">
+        <span class="fab fa-github"></span>
+        <span>Github</span>
+      </a>
+      &bullet;
+      <a href="https://www.linkedin.com/in/ohbriansung" target="_blank">
+        <span class="fab fa-linkedin"></span>
+        <span>LinkedIn</span>
+      </a>
+      &bullet;
+      <a href="mailto:s254901282002@gmail.com">
+        <span class="fas fa-envelope"></span>
+        <span>Contact me</span>
+      </a>
     </div>
   </footer>
+
+  <script src="js/main.js"></script>
 
 <!-- end body and html -->
 </body>
