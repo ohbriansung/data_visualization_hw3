@@ -12,3 +12,5 @@ Thumbs.db
 # Brian's
 .idea/
 *.twb*
+*.py
+_*

@@ -95,7 +95,7 @@
       <p>
         The dataset I used in this project was <b>311 Cases</b> sourced from <a href="https://data.sfgov.org/City-Infrastructure/311-Cases/vw6y-z8j6" target="_blank">data.sfgov.org</a>.
         This project focused on visualizing <b>tree maintenance</b> data happened between <b>03/01/2018</b> and <b>03/01/2019</b>, especially with <b>geospatial</b> data, in order to get a better understanding about the stories underneath.
-        I used <b>Tableau</b> for creating my prototype and used <b>D3.js</b> verson 5 for implementing the visualization.
+        I used <b>Python3</b> and <b>Tableau</b> for creating my prototype, and I used <b>D3.js</b> verson 5 for implementing the visualization.
       </p>
     </div>
   </section>
@@ -143,8 +143,47 @@
       </table>
 
       <p>
-        TBA
+        Used Columns:
       </p>
+
+      <table class="table is-bordered is-striped is-narrow is-fullwidth">
+        <thead>
+          <tr>
+            <th>Column</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td>Opened</td>
+            <td>The date and time when the service request was made.</td>
+          </tr>
+          <tr>
+            <td>Closed</td>
+            <td>The date and time when the service request was closed.</td>
+          </tr>
+          <tr>
+            <td>Supervior District</td>
+            <td>San Francisco Supervisor District as defined in 'Supervisor Districts as of April 2012'.</td>
+          </tr>
+          <tr>
+            <td>Neighborhood</td>
+            <td>San Francisco Neighborhood as defined in 'SF Find Neighborhoods'.</td>
+          </tr>
+          <tr>
+            <td>Latitude</td>
+            <td>Latitude of the location, using the WGS84 projection.</td>
+          </tr>
+          <tr>
+            <td>Longitude</td>
+            <td>Longitude of the location, using the WGS84 projection.</td>
+          </tr>
+          <tr>
+            <td>Media URL</td>
+            <td>A URL to media associated with the request. Used to web scrape photos.</td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </section>
 
@@ -168,7 +207,7 @@
 
       <svg id="svg"></svg>
 
-      <h3>Interpretation</h3>
+      <h3>Interactivity</h3>
 
       <p>
         If appropriate, provide a brief discussion of how to interpret this visualization (e.g. how the data is encoded) and how to interact with this visualization. Some of this discussion may not be necessary depending on the legends provided with the visualization.

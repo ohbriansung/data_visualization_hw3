@@ -122,11 +122,12 @@ a.theme-blue {
 /* Customized */
 
 svg, .prototypes {
-  background-color: #dddddd;
+  background-color: #353535;
   display: block;
   margin: auto;
   width: 960px;
   height: 500px;
+  border: #ffffff solid 1px;
 }
 
 .profile-photo {
