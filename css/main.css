@@ -121,15 +121,6 @@ a.theme-blue {
 
 /* Customized */
 
-svg, .prototypes {
-  background-color: #353535;
-  display: block;
-  margin: auto;
-  width: 960px;
-  height: 500px;
-  border: #ffffff solid 1px;
-}
-
 .profile-photo {
   width: 420px;
   height: 420px;
@@ -138,4 +129,40 @@ svg, .prototypes {
 .profile-links {
   text-align: justify;
   text-justify: inter-word;
+}
+
+svg, .prototypes {
+  background-color: #2b3638;
+  display: block;
+  margin: auto;
+  width: 960px;
+  height: 500px;
+  border: #ffffff solid 1px;
+}
+
+svg.map {
+  height: 600px;
+}
+
+path.land {
+  fill: #4d6059;
+  stroke: none;
+}
+
+path.neighborhood,
+path.street {
+  fill: none;
+  stroke: #7f8d89;
+  stroke-width: 1px;
+  pointer-events: none;
+}
+
+path.neighborhood {
+  stroke-width: 2px;
+}
+
+circle.symbol {
+  fill-opacity: 0.9;
+  stroke: #ffffff;
+  stroke-width: 0.5px;
 }

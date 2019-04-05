@@ -205,7 +205,12 @@
     <div class="container content">
       <h2><a href="#vis" class="navigation">#</a> D3 Visualization</h2>
 
-      <svg id="svg"></svg>
+      <svg id="svg" class="map">
+        <g id="basemap"></g>
+        <g id="streets"></g>
+        <g id="outline"></g>
+        <g id="records"></g>
+      </svg>
 
       <h3>Interactivity</h3>
 
@@ -222,7 +227,7 @@
       <h3>Credit</h3>
 
       <p>
-        If appropriate, provide credit for the dataset, any code used, and design inspirations here. Unsufficient discussion here is a violation of the <a href="/syllabus.html#cheating-policy">academic honesty policy</a> and may result in an F grade for the assignment or the <em>entire</em> course.
+        1. <a href="https://bl.ocks.org/sjengle/2f6d4832397e3cdd78d735774cb5a4f2" target="_blank">SF Arrests Map <i class="fas fa-external-link-alt"></i></a> by Sophie Engle
       </p>
     </div>
   </section>
@@ -293,7 +298,9 @@
     </div>
   </footer>
 
+  <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/vis.js"></script>
 
 <!-- end body and html -->
 </body>
