@@ -261,7 +261,11 @@ var drawRecords = function(data) {
       "<tr><th>Status:</th><td>" + d["Status"] + "</td></tr>" +
       "<tr><th>District:</th><td>" + d["Supervisor District"] + "</td></tr>" +
       "<tr><th>Neighborhood:</th><td>" + d["Neighborhood"] + "</td></tr>" +
-      "</table>"
+      "</table>" +
+      (d["Media URL"] == "" ?
+        "" :
+        "<img src=\"" + d["Media URL"] +
+        "\" class=\"detailImage\" alt=\"Image Not Found\">")
     );
 
     details.style("visibility", "visible");
@@ -279,12 +283,14 @@ var drawRecords = function(data) {
     symbols.filter(e => (e.Source != d))
       .lower()
       .transition()
-      .style("fill", "#B0B0B0");
+      .style("fill", "#555555")
+      .attr("r", 1);
   });
 
   legends.on("mouseout.brushing", function(d) {
     symbols.filter(e => (e.Source != d))
       .transition()
-      .style("fill", e => colorScale(e.Source));
+      .style("fill", e => colorScale(e.Source))
+      .attr("r", 3);
   });
 }
