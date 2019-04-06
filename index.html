@@ -155,6 +155,14 @@
         </thead>
         <tfoot>
           <tr>
+            <td>Address</td>
+            <td>Human readable address or description of location.</td>
+          </tr>
+          <tr>
+            <td>Request Details</td>
+            <td>The human readable name of the service request details.</td>
+          </tr>
+          <tr>
             <td>Opened</td>
             <td>The date and time when the service request was made.</td>
           </tr>
@@ -163,7 +171,11 @@
             <td>The date and time when the service request was closed.</td>
           </tr>
           <tr>
-            <td>Supervior District</td>
+            <td>Status</td>
+            <td>A single-word indicator of the current state of the service request.</td>
+          </tr>
+          <tr>
+            <td>Supervisor District</td>
             <td>San Francisco Supervisor District as defined in 'Supervisor Districts as of April 2012'.</td>
           </tr>
           <tr>
@@ -203,13 +215,18 @@
   <!-- visualization setcion -->
   <section id="vis" class="section">
     <div class="container content">
-      <h2><a href="#vis" class="navigation">#</a> D3 Visualization</h2>
+      <h2><a href="#vis" class="navigation">#</a> D3 Visualization: San Francisco Tree Maintenance Distribution</h2>
 
       <svg id="svg" class="map">
         <g id="basemap"></g>
         <g id="streets"></g>
         <g id="outline"></g>
         <g id="records"></g>
+        <g id="legends"></g>
+        <g id="tooltip"></g>
+        <g id="details"></g>
+        <g id="picture"></g>
+        <g id="mslider"></g>
       </svg>
 
       <h3>Interactivity</h3>
@@ -227,7 +244,10 @@
       <h3>Credit</h3>
 
       <p>
-        1. <a href="https://bl.ocks.org/sjengle/2f6d4832397e3cdd78d735774cb5a4f2" target="_blank">SF Arrests Map <i class="fas fa-external-link-alt"></i></a> by Sophie Engle
+        0. <a href="https://bl.ocks.org/sjengle/2f6d4832397e3cdd78d735774cb5a4f2" target="_blank">SF Arrests Map <i class="fas fa-external-link-alt"></i></a> by Sophie Engle<br/>
+        1. <a href="https://observablehq.com/@d3/conic-equal-area" target="_blank">Conic Equal Area <i class="fas fa-external-link-alt"></i></a> by D3<br/>
+        2. <a href="https://bl.ocks.org/martinjc/f2241a09bd18caad10fc7249ca5d7816" target="_blank">Bar chart, multiple datasets, using slider <i class="fas fa-external-link-alt"></i></a> by Martin Chorley<br/>
+        3. <a href="https://bl.ocks.org/mbostock/1424037" target="_blank">SVG foreignObject Example <i class="fas fa-external-link-alt"></i></a> by Mike Bostock
       </p>
     </div>
   </section>
