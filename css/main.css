@@ -168,9 +168,11 @@ circle.symbol {
   stroke-width: 0.7px;
 }
 
-.legend text {
+.legend text,
+g#dslider text {
   fill: #ffffff;
   font-size: 12px;
+  cursor: pointer;
 }
 
 g text.bold,
