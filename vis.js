@@ -200,17 +200,26 @@ var drawRecords = function(data) {
   let recordCount = {};
   recordCount.total = 0;
   recordCount.values = [];
+  let array = d3.range(0, 0.001, 0.0001);
 
   // Filtering and calculating x,y coordinators on map
   data.forEach(function(row) {
+    let source = row.Source;
+    let month = parseInt(row.Opened.substring(0, 2));
     let lat = parseFloat(row.Latitude);
     let lon = parseFloat(row.Longitude);
-    let pixels = projection([lon, lat]);
 
+    // There are several records from Integrated Agency with exactly same
+    // Latitude and Longitude, so I added some salts to distinguish them.
+    if (source == "Integrated Agency") {
+      lat += array[Math.floor(Math.random() * 10)];
+      lon += array[Math.floor(Math.random() * 10)];
+    }
+
+    let pixels = projection([lon, lat]);
     row.x = pixels[0];
     row.y = pixels[1];
 
-    let source = row.Source;
     if (!(source in recordCount.values)) {
       recordCount.values[source] = 0;
     }
