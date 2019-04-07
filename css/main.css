@@ -189,7 +189,7 @@ g#dslider text.bold,
 g#tooltip text {
   font-family: 'Germania One', cursive;
   fill: #ffffff;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   stroke: #000000;
   stroke-width: 0.25px;
@@ -223,4 +223,9 @@ g#tooltip text {
 .active {
   stroke: RED !important;
   stroke-width: 1.5px !important;
+}
+
+pre {
+  background-color: #999999;
+  color: #30592B;
 }

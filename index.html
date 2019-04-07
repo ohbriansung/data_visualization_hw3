@@ -266,17 +266,52 @@
         1. Hovering over the record symbols highlights the legends, brushes pie chart, changes the content in pie.<br/>
         2. Hovering over the legends brushes the record and pie chart, changes the content in pie.<br/>
         3. Hovering over the arcs of the pie chart highlights the legends, brushes records, changes the content in pie.<br/>
-        4. Hovering over the neighborhood highlights the boundaries and shows the name of it.<br/>
+        4. Hovering over the neighborhood highlights the boundaries and, shows the name and area ratio against entire SF.<br/>
         5. Draging the circle on the slider, click on the slider, or click on the ticks of the slider changes the data source by year and month.
       </p>
 
-      <h3>Credit</h3>
+      <h3>Ratio Calculation</h3>
+
+      <p>
+        <b>Area Ratio</b>: After drawing the paths of basemap, use <b>foreach()</b> function to go through each neighborhood and calculate the area using <b>d3.geoArea()</b>.
+        Put the result of each neighborhood and the total area into a dictionary for later use.
+<pre>d3.select("g#tooltip")
+  .selectAll("path.land")
+  .each(function(d) {
+    let current = d3.geoArea(d);
+    area.values[d.properties.nhood] = current;
+    area.total += current;
+  });</pre>
+      </p>
+
+      <p>
+        <b>Source Ratio</b>: When calculating the X and Y coordinates on the projection, count the number of records of each source and the total.
+        Put the result into a dictionary for later use.
+<pre>data.forEach(function(row) {
+  let lat = parseFloat(row.Latitude);
+  let lon = parseFloat(row.Longitude);
+  let pixels = projection([lon, lat]);
+
+  row.x = pixels[0];
+  row.y = pixels[1];
+
+  let source = row.Source;
+  if (!(source in recordCount.values)) {
+    recordCount.values[source] = 0;
+  }
+  recordCount.values[source]++;
+  recordCount.total++;
+});</pre>
+      </p>
+
+      <h3>Credits</h3>
 
       <p>
         0. <a href="https://bl.ocks.org/sjengle/2f6d4832397e3cdd78d735774cb5a4f2" target="_blank">SF Arrests Map <i class="fas fa-external-link-alt"></i></a> by Sophie Engle<br/>
         1. <a href="https://observablehq.com/@d3/conic-equal-area" target="_blank">Conic Equal Area <i class="fas fa-external-link-alt"></i></a> by D3<br/>
-        2. <a href="https://bl.ocks.org/mbostock/22994cc97fefaeede0d861e6815a847e" target="_blank">Circle Dragging I <i class="fas fa-external-link-alt"></i></a> by Mike Bostock<br/>
-        3. <a href="https://bl.ocks.org/mbostock/1424037" target="_blank">SVG foreignObject Example <i class="fas fa-external-link-alt"></i></a> by Mike Bostock
+        2. <a href="https://github.com/d3/d3-geo/blob/master/README.md#geoArea" target="_blank">d3.geoArea() <i class="fas fa-external-link-alt"></i></a> by D3<br/>
+        3. <a href="https://bl.ocks.org/mbostock/22994cc97fefaeede0d861e6815a847e" target="_blank">Circle Dragging I <i class="fas fa-external-link-alt"></i></a> by Mike Bostock<br/>
+        4. <a href="https://bl.ocks.org/mbostock/1424037" target="_blank">SVG foreignObject Example <i class="fas fa-external-link-alt"></i></a> by Mike Bostock
       </p>
     </div>
   </section>

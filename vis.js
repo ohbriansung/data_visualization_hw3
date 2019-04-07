@@ -127,12 +127,21 @@ var filterByMonth = function(data, m) {
 }
 
 var drawBasemap = function(json) {
+  let area = {};
+  area.total = 0;
+  area.values = {};
+
   let basemap = g.basemap.selectAll("path.land")
     .data(json["features"])
     .enter()
     .append("path")
     .attr("d", path)
-    .attr("class", "land");
+    .attr("class", "land")
+    .each(function(d) {
+      let current = d3.geoArea(d);
+      area.values[d.properties.nhood] = current;
+      area.total += current;
+    });
 
   // Adding highlight
   basemap.on("mouseover.highlight", function(d) {
@@ -146,7 +155,8 @@ var drawBasemap = function(json) {
 
   // Adding tooltip
   basemap.on("mouseover.tooltip", function(d) {
-    tooltip.text(d.properties.nhood);
+    let nhood = d.properties.nhood;
+    tooltip.text(nhood + ": " + calculateRatio(area.values[nhood], area.total));
     tooltip.style("visibility", "visible");
   });
 
@@ -221,7 +231,7 @@ var drawRecords = function(data) {
     .style("opacity", 0);
 
   symbols.transition()
-    .duration(100)
+    .duration(200)
     .style("opacity", 1);
 
   // Adding details
@@ -256,6 +266,7 @@ var drawRecords = function(data) {
     g.piechar.selectAll(".arc")
       .filter(e => (d.Source != e.data.source))
       .transition()
+      .duration(200)
       .style("fill", "#555555");
 
     g.piechar.select(".pieCount")
@@ -280,6 +291,7 @@ var drawRecords = function(data) {
     g.piechar.selectAll(".arc")
       .filter(e => (d.Source != e.data.source))
       .transition()
+      .duration(200)
       .style("fill", e => colorScale(e.data.source));
 
     g.piechar.select(".pieCount")
@@ -346,11 +358,11 @@ var drawPie = function(recordCount) {
   let arcs = g.piechar.selectAll(".arc");
 
   arcs.transition()
-    .duration(100)
+    .duration(200)
     .style("opacity", 1);
 
   g.piechar.selectAll("text").transition()
-    .duration(100)
+    .duration(200)
     .style("opacity", 1);
 
   arcs.on("mouseover.arc", function(d) {
@@ -372,6 +384,7 @@ var drawPie = function(recordCount) {
     g.piechar.selectAll(".arc")
       .filter(e => (e.data.source != d.data.source))
       .transition()
+      .duration(200)
       .style("fill", "#555555");
 
     g.piechar.select(".pieCount")
@@ -401,6 +414,7 @@ var drawPie = function(recordCount) {
     g.piechar.selectAll(".arc")
       .filter(e => (e.data.source != d.data.source))
       .transition()
+      .duration(200)
       .style("fill", e => colorScale(e.data.source));
 
     g.piechar.select(".pieCount")
@@ -475,6 +489,7 @@ var drawLegends = function(data) {
       return e.data.source != d;
     })
       .transition()
+      .duration(200)
       .style("fill", "#555555");
 
     g.piechar.select(".pieCount")
@@ -501,6 +516,7 @@ var drawLegends = function(data) {
 
     arcs.filter(e => (e.data.source != d))
       .transition()
+      .duration(200)
       .style("fill", e => colorScale(e.data.source));
 
     g.piechar.select(".pieCount")
