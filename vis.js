@@ -232,7 +232,7 @@ var drawRecords = function(data) {
     detailBody.html(
       "<table>" +
       "<tr><th>Address:</th><td>" + d["Address"] + "</td></tr>" +
-      "<tr><th>Detail:</th><td>" + d["Request Details"] + "</td></tr>" +
+      "<tr><th>Detail:</th><td>" + d["Request Details"].replace(/_/g, " ") + "</td></tr>" +
       "<tr><th>Opened:</th><td>" + d["Opened"] + "</td></tr>" +
       "<tr><th>Closed:</th><td>" + d["Closed"] + "</td></tr>" +
       "<tr><th>Status:</th><td>" + d["Status"] + "</td></tr>" +
