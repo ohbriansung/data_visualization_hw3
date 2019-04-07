@@ -24,9 +24,9 @@ var attr = {
 
 // Data locations
 const files = {
-  basemap: "/data/analysis_eighborhoods.geojson",
-  streets: "/data/streets_active_and_retired.geojson",
-  records: "/data/_tree_maintenance_march_2018_to_2019.csv"
+  basemap: "./data/analysis_eighborhoods.geojson",
+  streets: "./data/streets_active_and_retired.geojson",
+  records: "./data/_tree_maintenance_march_2018_to_2019.csv"
 }
 
 // Selecting svg tag
