@@ -17,7 +17,7 @@ var attr = {
   plotWidth: 960,
   plotHeight: 600,
   margin: {
-    top: 30,
+    top: 25,
     right: 160
   }
 }
@@ -38,6 +38,7 @@ const g = {
   streets: svg.select("g#streets"),
   outline: svg.select("g#outline"),
   records: svg.select("g#records"),
+  piechar: svg.select("g#piechar"),
   legends: svg.select("g#legends"),
   tooltip: svg.select("g#tooltip"),
   details: svg.select("g#details"),
@@ -94,11 +95,16 @@ d3.csv(files.records).then(function(d) {
   drawLegends(d);  // Only in the beginning
 
   let data = filterByMonth(d, 3);
-  drawRecords(data);
+  let recordCount = drawRecords(data);
+  drawPie(recordCount);
 });
 
 var translate = function(a, b) {
   return "translate(" + a + ", " + b + ")";
+}
+
+var calculateRatio = function(value, total) {
+  return "" + (value / total * 100).toFixed(2) + "%";
 }
 
 // Filtering would be a good idea since there will be too many symbols if not doing so
@@ -181,6 +187,10 @@ var drawStreets = function(json) {
 }
 
 var drawRecords = function(data) {
+  let recordCount = {};
+  recordCount.total = 0;
+  recordCount.values = [];
+
   // Filtering and calculating x,y coordinators on map
   data.forEach(function(row) {
     let lat = parseFloat(row.Latitude);
@@ -189,6 +199,13 @@ var drawRecords = function(data) {
 
     row.x = pixels[0];
     row.y = pixels[1];
+
+    let source = row.Source;
+    if (!(source in recordCount.values)) {
+      recordCount.values[source] = 0;
+    }
+    recordCount.values[source]++;
+    recordCount.total++;
   });
 
   // Drawing Symbols
@@ -204,7 +221,7 @@ var drawRecords = function(data) {
     .style("opacity", 0);
 
   symbols.transition()
-    .duration(250)
+    .duration(100)
     .style("opacity", 1);
 
   // Adding details
@@ -229,22 +246,179 @@ var drawRecords = function(data) {
     );
 
     details.style("visibility", "visible");
+
+    g.legends.selectAll(".legendBackground")
+      .filter(e => (d.Source == e))
+      .transition()
+      .duration(100)
+      .style("fill", "#646C6E");
+
+    g.piechar.selectAll(".arc")
+      .filter(e => (d.Source != e.data.source))
+      .transition()
+      .style("fill", "#555555");
+
+    g.piechar.select(".pieCount")
+      .text("Count: " + recordCount.values[d.Source]);
+
+    g.piechar.select(".pieRatio")
+      .text("Ratio: " +
+        calculateRatio(recordCount.values[d.Source], recordCount.total)
+      );
   });
 
   symbols.on("mouseout.details", function(d) {
     d3.select(this).classed("active", false);
     details.style("visibility", "hidden");
+
+    g.legends.selectAll(".legendBackground")
+      .filter(e => (d.Source == e))
+      .transition()
+      .duration(100)
+      .style("fill", "#2B3638");
+
+    g.piechar.selectAll(".arc")
+      .filter(e => (d.Source != e.data.source))
+      .transition()
+      .style("fill", e => colorScale(e.data.source));
+
+    g.piechar.select(".pieCount")
+      .text("Count: " + recordCount.total);
+
+    g.piechar.select(".pieRatio")
+      .text("Ratio: 100%");
+  });
+
+  return recordCount;
+}
+
+svg.append("text")  // Pie chart title
+  .attr("class", "bold")
+  .attr("text-anchor", "start")
+  .attr("transform", translate(attr.plotWidth - attr.margin.right , attr.margin.top + 145))
+  .text("Ratio");
+
+var drawPie = function(recordCount) {
+  let innerRadius = 50;
+  let outerRadius = 70;
+
+  let keys = Object.keys(colors);  // Compiling data
+  let map = keys.map(function(d) {
+    return {
+      "source": d,
+      "value": (d in recordCount.values) ? recordCount.values[d] : 0,
+      "total": recordCount.total
+    };
+  });
+
+  let pie = d3.pie().sort(null).value(d => d.value);
+  let arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
+
+  g.piechar.attr("transform", translate(
+    attr.plotWidth - 90,
+    attr.margin.top + 215
+  ));  // Moving chart to upper-right corner
+
+  g.piechar.selectAll(".arc")  // Drawing Pie
+    .data(pie(map))
+    .enter()
+    .append("path")
+    .attr("class", "arc")
+    .attr("d", arc)
+    .style("fill", d => colorScale(d.data.source))
+    .style("stroke", "none")
+    .style("opacity", 0);
+
+  g.piechar.append("text")  // Pie count
+    .attr("class", "pieCount")
+    .attr("transform", translate(0, -10))
+    .attr("text-anchor", "middle")
+    .style("opacity", 0)
+    .text("Total: " + recordCount.total);
+
+  g.piechar.append("text")  // Pie ratio
+    .attr("class", "pieRatio")
+    .attr("transform", translate(0, 10))
+    .attr("text-anchor", "middle")
+    .style("opacity", 0)
+    .text("Ratio: 100%");
+
+  let arcs = g.piechar.selectAll(".arc");
+
+  arcs.transition()
+    .duration(100)
+    .style("opacity", 1);
+
+  g.piechar.selectAll("text").transition()
+    .duration(100)
+    .style("opacity", 1);
+
+  arcs.on("mouseover.arc", function(d) {
+    let symbols = g.records.selectAll("circle");
+
+    symbols.filter(e => (e.Source != d.data.source))
+      .lower()
+      .transition()
+      .duration(200)
+      .style("fill", "#555555")
+      .attr("r", 1);
+
+    g.legends.selectAll(".legendBackground")
+      .filter(e => (e == d.data.source))
+      .transition()
+      .duration(100)
+      .style("fill", "#646C6E");
+
+    g.piechar.selectAll(".arc")
+      .filter(e => (e.data.source != d.data.source))
+      .transition()
+      .style("fill", "#555555");
+
+    g.piechar.select(".pieCount")
+      .text("Count: " + d.data.value);
+
+    g.piechar.select(".pieRatio")
+      .text("Ratio: " +
+        calculateRatio(d.data.value, recordCount.total)
+      );
+  });
+
+  arcs.on("mouseout.arc", function(d) {
+    let symbols = g.records.selectAll("circle");
+
+    symbols.filter(e => (e.Source != d.data.source))
+      .transition()
+      .duration(200)
+      .style("fill", e => colorScale(e.Source))
+      .attr("r",3);
+
+    g.legends.selectAll(".legendBackground")
+      .filter(e => (e == d.data.source))
+      .transition()
+      .duration(100)
+      .style("fill", "#2B3638");
+
+    g.piechar.selectAll(".arc")
+      .filter(e => (e.data.source != d.data.source))
+      .transition()
+      .style("fill", e => colorScale(e.data.source));
+
+    g.piechar.select(".pieCount")
+      .text("Count: " + recordCount.total);
+
+    g.piechar.select(".pieRatio")
+      .text("Ratio: 100%");
   });
 }
 
 var drawLegends = function(data) {
-  g.legends.append("text")  // legend title
+  g.legends.append("text")  // Legend title
     .attr("class", "bold")
     .attr("text-anchor", "start")
     .attr("transform", translate(attr.plotWidth - attr.margin.right, attr.margin.top - 5))
     .text("Source");
 
-  let legend = g.legends.selectAll("g")  // legend rows
+  let legend = g.legends.selectAll("g")  // Legend rows
     .data(colorScale.domain())
     .enter()
     .append("g")
@@ -253,19 +427,19 @@ var drawLegends = function(data) {
       return translate(attr.plotWidth - attr.margin.right, attr.margin.top + i * 20);
     });
 
-  legend.append("rect")  // rect for interactivity
+  legend.append("rect")  // Rect for interactivity
     .attr("width", attr.margin.right - 10)
     .attr("height", 15)
     .attr("class", "legendBackground")
-    .attr("id", d => (d.replace(/\W/g, '')))
     .style("fill", "#2B3638");
 
-  legend.append("rect")  // color box
+  legend.append("rect")  // Color box
     .attr("width", 15)
     .attr("height", 15)
+    .attr("class", "legendColor")
     .style("fill", colorScale);
 
-  legend.append("text")  // legend text
+  legend.append("text")  // Legend text
     .attr("x", 20)
     .attr("y", 12)
     .style("text-anchor", "start")
@@ -273,9 +447,12 @@ var drawLegends = function(data) {
 
   // Adding brushing
   let legends = d3.select("svg#svg").selectAll("g.legend");
+  let total = 0;
+  let value = 0;
 
   legends.on("mouseover.brushing", function(d) {
     let symbols = g.records.selectAll("circle");
+    let arcs = g.piechar.selectAll(".arc");
 
     d3.select(this).select(".legendBackground")
       .transition()
@@ -285,12 +462,31 @@ var drawLegends = function(data) {
     symbols.filter(e => (e.Source != d))
       .lower()
       .transition()
+      .duration(200)
       .style("fill", "#555555")
       .attr("r", 1);
+
+    arcs.filter(function(e) {
+      if (e.data.source == d) {
+        total = e.data.total;
+        value = e.data.value;
+      }
+
+      return e.data.source != d;
+    })
+      .transition()
+      .style("fill", "#555555");
+
+    g.piechar.select(".pieCount")
+      .text("Count: " + value);
+
+    g.piechar.select(".pieRatio")
+      .text("Ratio: " + calculateRatio(value, total));
   });
 
   legends.on("mouseout.brushing", function(d) {
     let symbols = g.records.selectAll("circle");
+    let arcs = g.piechar.selectAll(".arc");
 
     d3.select(this).select(".legendBackground")
       .transition()
@@ -299,14 +495,25 @@ var drawLegends = function(data) {
 
     symbols.filter(e => (e.Source != d))
       .transition()
+      .duration(200)
       .style("fill", e => colorScale(e.Source))
       .attr("r", 3);
+
+    arcs.filter(e => (e.data.source != d))
+      .transition()
+      .style("fill", e => colorScale(e.data.source));
+
+    g.piechar.select(".pieCount")
+      .text("Count: " + total);
+
+    g.piechar.select(".pieRatio")
+      .text("Ratio: 100%");
   });
 }
 
 // Setup drag slider and value
 attr.coordinate = {};
-attr.coordinate.x = attr.plotWidth - 20;
+attr.coordinate.x = attr.plotWidth - 30;
 attr.coordinate.y1 = attr.plotHeight - 260;
 attr.coordinate.y2 = attr.plotHeight - 20;
 attr.coordinate.current = attr.coordinate.y1;
@@ -315,7 +522,7 @@ attr.coordinate.range = attr.coordinate.y2 - attr.coordinate.y1;
 attr.coordinate.mid = (attr.coordinate.range / attr.coordinate.step) / 2;
 attr.coordinate.data = d3.range(13);
 
-g.dslider.selectAll(".tick")  // slider tick
+g.dslider.selectAll(".tick")  // Slider tick
   .data(attr.coordinate.data)
   .enter()
   .append("line")
@@ -326,7 +533,7 @@ g.dslider.selectAll(".tick")  // slider tick
   .style("stroke", "#AAAAAA")
   .style("stroke-width", 1);
 
-g.dslider.selectAll("text")  // slider text
+g.dslider.selectAll("text")  // Slider text
   .data(attr.coordinate.data)
   .enter()
   .append("text")
@@ -341,9 +548,9 @@ g.dslider.selectAll("text")  // slider text
 
     return m + "/" + y;
   })
-  .on("click", switchMonth);
+  .on("click", dragEnd);
 
-var line = g.dslider.append("line")  // slider bar
+g.dslider.append("line")  // Slider bar
   .attr("x1", attr.coordinate.x)
   .attr("x2", attr.coordinate.x)
   .attr("y1", attr.coordinate.y1)
@@ -352,17 +559,38 @@ var line = g.dslider.append("line")  // slider bar
   .style("stroke-linecap", "round")
   .style("stroke-width", 5)
   .style("cursor", "pointer")
-  .on("click", switchMonth);
+  .on("click", dragEnd);
 
-var dragCircle = g.dslider.append("circle")  // slider dragger
+g.dslider.append("circle")  // Slider dragger
   .attr("r", 7)
   .attr("cx", attr.coordinate.x)
   .attr("cy", attr.coordinate.y1)
   .style("fill", "#FFFFFF")
   .style("cursor", "pointer")
-  .call(d3.drag().on("drag", switchMonth));
+  .call(
+    d3.drag()
+      .on("drag", dragging)
+      .on("end", dragEnd)
+  );
 
-function switchMonth(d) {
+g.dslider.append("text")  // Slider title
+  .attr("class", "bold")
+  .attr("text-anchor", "start")
+  .attr("transform", translate(attr.plotWidth - attr.margin.right , attr.coordinate.y1 + 4))
+  .text("Opened");
+
+function dragging(d) {
+  let y = d3.mouse(this)[1];  // Tracking y coordinate of mouse
+
+  y = y < attr.coordinate.y1 ? attr.coordinate.y1 :
+      y > attr.coordinate.y2 ? attr.coordinate.y2 : y;  // Setup boundaries for y
+
+  y = parseInt((y % 20 <= attr.coordinate.mid) ? y / 20 : y / 20 + 1) * 20;  // Stepping
+
+  g.dslider.select("circle").attr("cy", y);  // Changing circle position
+}
+
+function dragEnd(d) {
   let y = d3.mouse(this)[1];  // Tracking y coordinate of mouse
 
   y = y < attr.coordinate.y1 ? attr.coordinate.y1 :
@@ -372,20 +600,32 @@ function switchMonth(d) {
 
   g.dslider.select("circle").attr("cy", y);  // Changing circle position
 
-  // on change, removing ole symbols and adding new ones
   if (attr.coordinate.current != y) {
     attr.coordinate.current = y;
 
-    let symbols = g.records.selectAll("circle");
-    symbols.transition()
-      .duration(250)
+    g.records.selectAll("circle")
+      .transition()
+      .duration(100)
+      .style("opacity", 0)
+      .remove();
+
+    g.piechar.selectAll(".arc")
+      .transition()
+      .duration(100)
+      .style("opacity", 0)
+      .remove();
+
+    g.piechar.selectAll("text")
+      .transition()
+      .duration(100)
       .style("opacity", 0)
       .remove();
 
     let month = (y - attr.coordinate.y1) / 20 + 3;
     setTimeout(function() {
       let data = filterByMonth(dataset, month);
-      drawRecords(data);
-    }, 600);
+      let recordCount = drawRecords(data);
+      drawPie(recordCount);
+    }, 400);
   }
 }

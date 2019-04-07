@@ -168,14 +168,24 @@ circle.symbol {
   stroke-width: 0.7px;
 }
 
+
 .legend text,
+g#piechar text,
 g#dslider text {
   fill: #ffffff;
   font-size: 12px;
+}
+
+.legend text,
+g#records circle,
+g#piechar .arc,
+g#dslider text {
   cursor: pointer;
 }
 
 g text.bold,
+svg text.bold,
+g#dslider text.bold,
 g#tooltip text {
   font-family: 'Germania One', cursive;
   fill: #ffffff;
@@ -183,6 +193,7 @@ g#tooltip text {
   font-weight: bold;
   stroke: #000000;
   stroke-width: 0.25px;
+  cursor: default;
 }
 
 #foreigndDetail table {
