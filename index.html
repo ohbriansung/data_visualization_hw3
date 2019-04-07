@@ -145,6 +145,12 @@
       </table>
 
       <p>
+        Data Processing:<br/>
+        Used python to filter unused column and to create new data file.
+        See source code <a href="https://github.com/usf-cs360-spring2019/homework3-ohbriansung/tree/gh-pages/data" target="_blank">here</a>.
+      </p>
+
+      <p>
         Used Columns:
       </p>
 
@@ -236,16 +242,30 @@
         <g id="dslider"></g>
       </svg>
 
-      <h3>Interactivity</h3>
-
-      <p>
-        If appropriate, provide a brief discussion of how to interpret this visualization (e.g. how the data is encoded) and how to interact with this visualization. Some of this discussion may not be necessary depending on the legends provided with the visualization.
-      </p>
-
       <h3>Discussion</h3>
 
       <p>
-        If appropriate, provide a brief discussion of the primary goal and findings of the visualization, any challenges encountered creating the visualization, and any other context as required by the assignment.
+        First, my D3 visualization is quite different from my prototype since it's very hard to customize the result when using Tableau and it doesn't support dark theme.
+        The record was abundant so I split them into months.
+        You can see that phone and Mobile/Open311 took the majority parts of the sources.
+        I would say that the reason was because people or constructors could easily report the incidents with their phones.
+        Furthermore, they would be able to take a picture and upload it instantly.
+        There were lots of tree maintenance on 36th Avenue in <b>August, 2018</b>.
+        I couldn't find the reason online but I assumed that they scheduled a month to clean up all the demaged trees there.
+        You are able to see the reasons and the pictures by hovering over the record symbols.
+        Overall, there was no certain pattern regarding the location of the tree maintenance.
+        They were just everywhere in San Francisco!
+      </p>
+
+      <h3>Interactivity</h3>
+
+      <p>
+        0. Hovering over the record symbols shows details (and picture) of the record.<br/>
+        1. Hovering over the record symbols highlights the legends, brushes pie chart, changes the content in pie.<br/>
+        2. Hovering over the legends brushes the record and pie chart, changes the content in pie.<br/>
+        3. Hovering over the arcs of the pie chart highlights the legends, brushes records, changes the content in pie.<br/>
+        4. Hovering over the neighborhood highlights the boundaries and shows the name of it.<br/>
+        5. Draging the circle on the slider, click on the slider, or click on the ticks of the slider changes the data source by year and month.
       </p>
 
       <h3>Credit</h3>
@@ -281,6 +301,7 @@
               Capable of working as a dedicated team member as well as an independent initiative taker.
               Proud <b>Taiwanese</b>!
               Currently, a 2nd year Master student in Computer Science at University of San Francisco who is graduating on May 18, 2019.
+              The profile picutre was taken in Yosemite National Park and I thought it would fit the theme perfectly.
               <br/>
               <br/>
               [ Interests ]<br/>
