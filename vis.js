@@ -30,7 +30,7 @@ const files = {
 }
 
 // Selecting svg tag
-const svg = d3.select("body").select("svg#svg");
+const svg = d3.select("body").select("svg#svg1");
 
 // Selecting groups in svg
 const g = {
@@ -469,7 +469,7 @@ var drawLegends = function(data) {
     .text(d => d);
 
   // Adding brushing
-  let legends = d3.select("svg#svg").selectAll("g.legend");
+  let legends = d3.select("svg#svg1").selectAll("g.legend");
   let total = 0;
   let value = 0;
 
