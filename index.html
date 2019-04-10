@@ -274,6 +274,32 @@
           </tr>
         </tfoot>
       </table>
+
+      <h3>Dataset 4 - Current Supervisor Districts</h3>
+
+      <p>
+        Source: <a href="https://data.sfgov.org/Geographic-Locations-and-Boundaries/Current-Supervisor-Districts/8nkz-x4ny" target="_blank">data.sfgov.org <i class="fas fa-external-link-alt"></i></a><br/>
+        Licence: <a href="https://opendatacommons.org/licenses/pddl/1.0/" target="_blank">ODC Public Domain Dedication and Licence <i class="fas fa-external-link-alt"></i></a><br/>
+        Type: GeoJSON<br/>
+        Date: 04/08/2019
+      </p>
+
+      <table class="table is-bordered is-striped is-narrow is-fullwidth">
+        <thead>
+          <tr>
+            <th style="width: 15ex">Attribution</th>
+            <th style="width: 12ex">Value</th>
+            <th>Sreenshot</th>
+          </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td>Size (KB)</td>
+            <td>448</td>
+            <td><img src="img/4_size.png"></td>
+          </tr>
+        </tfoot>
+      </table>
     </div>
   </section>
 
@@ -390,31 +416,56 @@
       <h2><a href="#vis2" class="navigation">#</a> D3 Visualization 2 - San Francisco Tree Maintenance Map</h2>
 
       <svg id="svg2" class="map">
+        <g id="basemap"></g>
+        <g id="outline" pointer-events="none"></g>
+        <g id="legends"></g>
+        <g id="details" pointer-events="none"></g>
       </svg>
 
       <h3>Discussion</h3>
 
       <p>
-
+        Previously, I had a assumption that there was no certain pattern regarding the location of the tree maintenance.
+        However, after I created another visualization using different data encoding, I had another conclusion that there did exist a pattern.
+        District 3, A.K.A. Financial District, and District 4, A.K.A Sunset District, are well developed.
+        Therefore, greenbelt in those areas would be considered less than other part of San Francisco.
+        On the other hand, district 8 contains a lot of parks, mountains and peaks so there would be more trees in that area.
+        That's why tree maintenance happened more frequently there.
       </p>
 
       <h3>Interactivity</h3>
 
       <p>
-
+        0. Hovering over the district highlights the boundaries.<br/>
+        1. Hovering over the district shows the details including number of records and ratio.<br/>
+        2. Hovering over the district shows the tick on color legend.
       </p>
 
       <h3>Ratio Calculation</h3>
 
       <p>
+        <b>Record Ratio</b>: Before drawing the basemap, use <b>foreach()</b> function to go through the dataset and count the record.
+        Put the result of each district and the total number into a dictionary for later use. (On line 39 of <i>vis2.js</i> file)
+<pre>data.forEach(function(row) {
+  let dist = row["Supervisor District"];
 
+  if (!(dist in dataCount.values)) {
+    dataCount.values[dist] = 0;
+  }
+
+  dataCount.values[dist]++;
+  dataCount.total++;
+});</pre>
       </p>
 
       <h3>Credits</h3>
 
       <p>
-
+        0. <a href="https://bl.ocks.org/sjengle/2f6d4832397e3cdd78d735774cb5a4f2" target="_blank">SF Arrests Map <i class="fas fa-external-link-alt"></i></a> by Sophie Engle<br/>
+        1. <a href="https://blockbuilder.org/sjengle/0f3caca5c7329733cb8ed912d84807ed" target="_blank">Mobility Bubble Chart <i class="fas fa-external-link-alt"></i></a> by Sophie Engle<br/>
+        2. <a href="https://github.com/d3/d3-scale/blob/master/README.md#_continuous" target="_blank">D3 Continuous Scales <i class="fas fa-external-link-alt"></i></a> by D3
       </p>
+
     </div>
   </section>
 
@@ -487,6 +538,7 @@
 
   <script src="js/main.js"></script>
   <script src="vis.js"></script>
+  <script src="vis2.js"></script>
 
 <!-- end body and html -->
 </body>

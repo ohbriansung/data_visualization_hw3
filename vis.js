@@ -26,7 +26,8 @@ var attr = {
 const files = {
   basemap: "./data/analysis_eighborhoods.geojson",
   streets: "./data/streets_active_and_retired.geojson",
-  records: "./data/tree_maintenance_march_2018_to_2019_.csv"
+  records: "./data/tree_maintenance_march_2018_to_2019_.csv",
+  supdist: "./data/current_supervisor_districts.geojson"
 }
 
 // Selecting svg tag
@@ -80,7 +81,7 @@ const path = d3.geoPath().projection(projection);
 d3.json(files.basemap).then(function(json) {
   projection.fitSize([attr.plotWidth, attr.plotHeight - 3], json);
   drawBasemap(json);
-  drawOutline(json);
+  drawOutline(json, g.outline);
 });
 
 // Drawing streets
@@ -97,6 +98,8 @@ d3.csv(files.records).then(function(d) {
   let data = filterByMonth(d, 3);
   let recordCount = drawRecords(data);
   drawPie(recordCount);
+
+
 });
 
 var translate = function(a, b) {
@@ -171,8 +174,8 @@ var drawBasemap = function(json) {
   });
 }
 
-var drawOutline = function(json) {
-  let outline = g.outline.selectAll("path.neighborhood")
+var drawOutline = function(json, which) {
+  let outline = which.selectAll("path.neighborhood")
     .data(json["features"])
     .enter()
     .append("path")

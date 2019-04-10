@@ -159,6 +159,10 @@ path.street {
   pointer-events: none;
 }
 
+svg#svg2 g#outline path.neighborhood {
+  stroke: #777777;
+}
+
 path.neighborhood {
   stroke-width: 2px;
 }
@@ -210,6 +214,10 @@ g#tooltip text {
   padding: 0;
 }
 
+#foreigndDetail table th {
+  padding-right: 10px;
+}
+
 #foreigndDetail img.detailImage {
   display: block;
   margin: auto;
@@ -228,4 +236,18 @@ g#tooltip text {
 pre {
   background-color: #999999;
   color: #30592B;
+}
+
+.colorLegend {
+  stroke: #555555;
+}
+
+g#colorAxis path.domain,
+g#colorAxis g.tick line {
+  visibility: hidden;
+}
+
+g#colorAxis g.tick text {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 12px;
 }
