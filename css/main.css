@@ -242,8 +242,7 @@ pre {
   stroke: #555555;
 }
 
-g#colorAxis path.domain,
-g#colorAxis g.tick line {
+g#colorAxis path.domain {
   visibility: hidden;
 }
 

@@ -121,25 +121,21 @@ var drawBasemap2 = function(json, data) {
     }
   });
 
-  // Adding highlight
-  basemap.on("mouseover.highlight2", function(d) {
+  axisGroup.selectAll("line").each(function(d, i) {
+    d3.select(this).style("visibility", "hidden");
+  });
+
+  // Adding interactivity
+  basemap.on("mouseover.details2", function(d) {
     d3.select(d.properties.outline).raise();
     d3.select(d.properties.outline).classed("active", true);
-  });
-
-  basemap.on("mouseout.highlight2", function(d) {
-    d3.select(d.properties.outline).classed("active", false);
-  });
-
-  // Adding tooltip
-  basemap.on("mouseover.details2", function(d) {
-    d3.select(this).classed("active", true);
 
     let dist = d.properties.supervisor;
+    let count = dataCount.values[dist];
     detailBody2.html(
       "<table>" +
       "<tr><th>District:</th><td>" + dist + "</td></tr>" +
-      "<tr><th>Count:</th><td>" + dataCount.values[dist] +
+      "<tr><th>Count:</th><td>" + count +
       " / " + dataCount.total + "</td></tr>" +
       "<tr><th>Ratio:</th><td>" +
       calculateRatio(dataCount.values[dist], dataCount.total) +
@@ -147,10 +143,32 @@ var drawBasemap2 = function(json, data) {
     );
 
     details2.style("visibility", "visible");
+
+    let ticks = legendAxis.tickValues();
+    ticks.push(count);
+    legendAxis.tickValues(ticks);
+    axisGroup.call(legendAxis);
+
+    axisGroup.selectAll("text").each(function(d, i) {
+      if (i == 2) {
+        d3.select(this).style("visibility", "hidden");
+      }
+    });
+
+    axisGroup.selectAll("line").each(function(d, i) {
+      if (i == 2) {
+        d3.select(this).style("visibility", "visable")
+          .style("stroke-width", 2)
+          .style("stroke", "red");
+      }
+    });
   });
 
   basemap.on("mouseout.details2", function(d) {
-    d3.select(this).classed("active", false);
+    d3.select(d.properties.outline).classed("active", false);
     details2.style("visibility", "hidden");
+
+    legendAxis.tickValues(range);
+    axisGroup.call(legendAxis);
   });
 }

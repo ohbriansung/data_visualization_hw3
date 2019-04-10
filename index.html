@@ -83,6 +83,13 @@
               <span>Visualization 2</span>
             </a>
 
+            <a class="navbar-item" href="#grade">
+              <span class="icon">
+                <i class="fas fa-tasks"></i>
+              </span>
+              <span>Grade</span>
+            </a>
+
             <a class="navbar-item" href="#about">
               <span class="icon">
                 <i class="fas fa-user"></i>
@@ -413,7 +420,7 @@
 
   <section id="vis2" class="section">
     <div class="container content">
-      <h2><a href="#vis2" class="navigation">#</a> D3 Visualization 2 - San Francisco Tree Maintenance Map</h2>
+      <h2><a href="#vis2" class="navigation">#</a> D3 Visualization 2 - San Francisco Tree Maintenance Choropleth Map</h2>
 
       <svg id="svg2" class="map">
         <g id="basemap"></g>
@@ -466,6 +473,106 @@
         2. <a href="https://github.com/d3/d3-scale/blob/master/README.md#_continuous" target="_blank">D3 Continuous Scales <i class="fas fa-external-link-alt"></i></a> by D3
       </p>
 
+    </div>
+  </section>
+
+  <!-- separator between sections -->
+  <hr class="container">
+
+  <!-- grade section -->
+  <section class="section">
+    <div class="container content">
+      <h2 id="grade">
+        Expected Grade
+      </h2>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Done?</th>
+            <th>Letter</th>
+            <th>Justification</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- d level functionality -->
+          <tr>
+            <td class="has-text-centered">
+              <i class="far fa-fw fa-check-circle has-text-success"></i>
+            </td>
+
+            <td class="has-text-centered">
+              D
+            </td>
+
+            <td>
+              Visualized the dataset including a basemap with either the SF Supervisor Districts or SF Find Neighborhood boundaries.
+            </td>
+          </tr>
+
+          <!-- c level functionality -->
+          <tr>
+            <td class="has-text-centered">
+              <i class="far fa-fw fa-check-circle has-text-success"></i>
+            </td>
+
+            <td class="has-text-centered">
+              C
+            </td>
+
+            <td>
+              Implemented the D-level functionality in D3 version 5.
+            </td>
+          </tr>
+
+          <!-- b level functionality -->
+          <tr>
+            <td class="has-text-centered">
+              <i class="far fa-fw fa-check-circle has-text-success"></i>
+            </td>
+
+            <td class="has-text-centered">
+              B
+            </td>
+
+            <td>
+              Completed the C-level functionality and implement details-on-demand interactivity.
+            </td>
+          </tr>
+
+
+          <!-- a level functionality -->
+          <tr>
+            <td class="has-text-centered">
+              <i class="far fa-fw fa-check-circle has-text-success"></i>
+            </td>
+
+            <td class="has-text-centered">
+              A+
+            </td>
+
+            <td>
+              Completed the B-level functionality and implemented filtering and brushing. Calculated and visualized ratios and included 1 paragraph writeup of the ratio and how to calculate it.
+            </td>
+          </tr>
+
+          <!-- extra credit -->
+          <tr>
+            <td class="has-text-centered">
+              <i class="far fa-fw fa-check-circle has-text-success"></i>
+            </td>
+
+            <td class="has-text-centered">
+              Extra Credits
+            </td>
+
+            <td>
+              Added a second geospatial visualization using a different encoding, Choropleth Map, with D3 version 5. Visualized a numerical value using fill color for each supervisor district.
+            </td>
+          </tr>
+        <tbody>
+      </table>
     </div>
   </section>
 
