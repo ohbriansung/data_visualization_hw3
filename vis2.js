@@ -62,13 +62,22 @@ var drawBasemap2 = function(json, data) {
     .domain([min, max])
     .range(["#70B466", "#243F20"]);
 
+  let area = {};
+  area.total = 0;
+  area.values = {};
+
   let basemap = g2.basemap.selectAll("path.land")
     .data(json["features"])
     .enter()
     .append("path")
     .attr("d", path2)
     .attr("class", "land")
-    .style("fill", d => seqColorScale(dataCount.values[d.properties.supervisor]));
+    .style("fill", d => seqColorScale(dataCount.values[d.properties.supervisor]))
+    .each(function(d) {
+      let current = d3.geoArea(d);
+      area.values[d.properties.supervisor] = current;
+      area.total += current;
+    });
 
   // Creating color legend
   let legendWidth = 200;
@@ -141,12 +150,14 @@ var drawBasemap2 = function(json, data) {
     let count = dataCount.values[dist];
     detailBody2.html(
       "<table>" +
-      "<tr><th>District:</th><td>" + dist + "</td></tr>" +
-      "<tr><th>Count:</th><td>" + count +
+      "<tr><th>Supervisor District:</th><td>" + dist + "</td></tr>" +
+      "<tr><th>Record Count:</th><td>" + count +
       " / " + dataCount.total + "</td></tr>" +
-      "<tr><th>Ratio:</th><td>" +
-      calculateRatio(dataCount.values[dist], dataCount.total) +
-      "</td></tr></table>"
+      "<tr><th>Reocrd Ratio of SF:</th><td>" +
+      calculateRatio(dataCount.values[dist], dataCount.total) + "</td></tr>" +
+      "<tr><th>Area Ratio of SF:</th><td>" +
+      calculateRatio(area.values[dist], area.total) + "</td></tr>" +
+      "</table>"
     );
 
     details2.style("visibility", "visible");
