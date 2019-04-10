@@ -22,11 +22,18 @@ var detailBody2 = details2.append("xhtml:body")
   .style("background", "none")
   .html("<p>N/A</p>");
 
+const projection2 = d3.geoConicEqualArea()
+  .parallels([37.692514, 37.840699])
+  .rotate([122, 0]);
+
+// Setup path
+const path2 = d3.geoPath().projection(projection2);
+
 setTimeout(function() {
   d3.json(files.supdist).then(function(json) {
-    projection.fitSize([attr.plotWidth, attr.plotHeight - 3], json);
+    projection2.fitSize([attr.plotWidth, attr.plotHeight - 3], json);
     drawBasemap2(json, dataset);
-    drawOutline(json, g2.outline);
+    drawOutline(json, g2.outline, path2);
   });
 }, 1000);
 
@@ -59,7 +66,7 @@ var drawBasemap2 = function(json, data) {
     .data(json["features"])
     .enter()
     .append("path")
-    .attr("d", path)
+    .attr("d", path2)
     .attr("class", "land")
     .style("fill", d => seqColorScale(dataCount.values[d.properties.supervisor]));
 

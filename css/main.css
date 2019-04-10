@@ -115,6 +115,11 @@ a.theme-blue {
   color: #75a3bc;
 }
 
+figcaption {
+  text-align: center;
+  font-size: 9pt;
+}
+
 /* Footer */
 
 .hero.is-dark a:not(.button):not(.dropdown-item):not(.tag):hover {

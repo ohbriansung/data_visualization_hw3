@@ -81,7 +81,7 @@ const path = d3.geoPath().projection(projection);
 d3.json(files.basemap).then(function(json) {
   projection.fitSize([attr.plotWidth, attr.plotHeight - 3], json);
   drawBasemap(json);
-  drawOutline(json, g.outline);
+  drawOutline(json, g.outline, path);
 });
 
 // Drawing streets
@@ -174,12 +174,12 @@ var drawBasemap = function(json) {
   });
 }
 
-var drawOutline = function(json, which) {
-  let outline = which.selectAll("path.neighborhood")
+var drawOutline = function(json, whichG, whichPath) {
+  let outline = whichG.selectAll("path.neighborhood")
     .data(json["features"])
     .enter()
     .append("path")
-    .attr("d", path)
+    .attr("d", whichPath)
     .attr("class", "neighborhood")
     .each(function(d) {
       d.properties.outline = this;
@@ -254,7 +254,8 @@ var drawRecords = function(data) {
     detailBody.html(
       "<table>" +
       "<tr><th>Address:</th><td>" + d["Address"] + "</td></tr>" +
-      "<tr><th>Detail:</th><td>" + d["Request Details"].replace(/_/g, " ") + "</td></tr>" +
+      "<tr><th>Detail:</th><td>" +
+      d["Request Details"].replace(/_/g, " ") + "</td></tr>" +
       "<tr><th>Opened:</th><td>" + d["Opened"] + "</td></tr>" +
       "<tr><th>Closed:</th><td>" + d["Closed"] + "</td></tr>" +
       "<tr><th>Status:</th><td>" + d["Status"] + "</td></tr>" +
