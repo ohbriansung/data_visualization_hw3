@@ -1,6 +1,6 @@
 # San Francisco Tree Maintenance March 2018 to March 2019
 
-### Host with GitHub [here](https://ohbriansung.github.io/data_visualization_hw3/).
+### Website hosted with GitHub [here](https://ohbriansung.github.io/data_visualization_hw3/).
 
 ## Introduction
 
@@ -327,7 +327,7 @@ function dragEnd(d) {
 
 ## Author
 
--   Chien-Yu (Brian) Sung
+Chien-Yu (Brian) Sung
 
 ## Acknowledgment
 
