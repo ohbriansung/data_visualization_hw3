@@ -215,7 +215,6 @@ var drawRecords = function(data) {
     // Filtering and calculating x,y coordinators on map
     data.forEach(function(row) {
         let source = row.Source;
-        let month = parseInt(row.Opened.substring(0, 2));
         let lat = parseFloat(row.Latitude);
         let lon = parseFloat(row.Longitude);
 
