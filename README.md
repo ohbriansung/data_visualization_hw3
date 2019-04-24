@@ -2,6 +2,8 @@
 
 ### Website hosted with GitHub [here](https://ohbriansung.github.io/data_visualization_hw3/).
 
+*The svg in the website might not work properly on mobiles*
+
 ## Introduction
 
 The dataset I used in this project was 311 Cases sourced from data.sfgov.org. This project focused on visualizing tree maintenance data happened between 03/01/2018 and 03/01/2019, especially with geospatial data, in order to get a better understanding about the stories underneath. I used Python3 and Tableau for creating my prototype, and I used D3.js version 5 for implementing the visualization. The font styles used in this website are powered by Google Fonts.
